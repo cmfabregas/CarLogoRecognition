@@ -19,6 +19,9 @@ numpy.random.seed(seed)
 
 #loads data
 (X_train, y_train), (X_test, y_test) = cifar10.load_data()
+print('x_train shape:', X_train.shape)
+print(X_train.shape[0], 'train samples')
+print(X_test.shape[0], 'test samples')
 
 for i in range(0, 9):
 	pyplot.subplot(330 + 1 + i)
@@ -26,6 +29,12 @@ for i in range(0, 9):
 # show the plot
 pyplot.show()
 
+train_data_dir = 'data/train'
+validation_data_dir = 'data/validation'
+nb_train_sample = 8
+nb_validation_samples = 16
+epochs = 50
+batch_size = 16
 
 
 # normalize inputs from 0-255 to 0.0 - 1.0
@@ -42,11 +51,10 @@ num_classes = y_test.shape[1]
 
 #create model
 model = Sequential()
-
 model.add(Convolution2D(32,3,3, input_shape=(3,32,32), border_mode='same', activation='relu', W_constraint=maxnorm(3)))
 model.add(Dropout(0.2))
 model.add(Convolution2D(32,3,3, activation='relu', W_constraint=maxnorm(3)))
-model.add(MaxPooling2D(pool_size=(2,2)))
+model.add(MaxPooling2D(pool_size=(2, 2)))
 model.add(Flatten())
 model.add(Dense(512, activation='relu', W_constraint=maxnorm(3)))
 model.add(Dropout(0.5))
@@ -56,6 +64,7 @@ model.add(Dense(num_classes, activation='softmax'))
 epochs = 25
 lrate = 0.01
 decay = lrate/epochs
+sgd = SGD(lr=lrate, momentum=0.9, decay=decay, nesterov=False)
 sgd = SGD(lr=lrate, momentum=0.9, decay=decay, nesterov=False)
 model.compile(loss='categorical_crossentropy', optimizer=sgd, metrics=['accuracy'])
 print(model.summary())
