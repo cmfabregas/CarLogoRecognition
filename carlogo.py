@@ -3,7 +3,10 @@ from keras.models import Sequential
 from keras.layers import Conv2D, MaxPooling2D
 from keras.layers import Activation, Dropout, Flatten, Dense
 from keras import backend as K
+from keras import applications
 
+weights_path = '../keras/examples/vgg16_weights.h5'
+top_model_weights_path = 'first_try.h5'
 
 img_width, img_height = 250, 250 #img demensions
 
@@ -13,6 +16,9 @@ nb_train_samples = 16
 nb_validation_samples = 20
 epochs = 50
 batch_size = 16
+
+model = applications.VGG16(weights='imagenet', include_top=False)
+print('Model loaded.')
 
 if K.image_data_format() == 'channels_first':
     input_shape = (3, img_width, img_height)
@@ -69,7 +75,5 @@ model.fit_generator(
     train_generator,
     steps_per_epoch= nb_train_samples // batch_size,
     epochs=50,
-    validation_data=validation_generator ,
+    validation_data=validation_generator,
     validation_steps= nb_validation_samples // batch_size)
-
-#model.save_weights('first_try.h5')
