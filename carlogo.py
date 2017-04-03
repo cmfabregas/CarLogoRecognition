@@ -5,7 +5,9 @@ from keras.layers import Activation, Dropout, Flatten, Dense
 from keras import backend as K
 from keras import applications
 
-weights_path = '../keras/examples/vgg16_weights.h5'
+#flickr = flickrapi.FlickrAPI('0a0e20275249094ff865b34e5fce9722','f9b02cabe43e291d',format='parsed-json')
+
+weights_path = 'vgg16_weights.h5'
 top_model_weights_path = 'first_try.h5'
 
 img_width, img_height = 250, 250 #img demensions
@@ -77,3 +79,4 @@ model.fit_generator(
     epochs=50,
     validation_data=validation_generator,
     validation_steps= nb_validation_samples // batch_size)
+
