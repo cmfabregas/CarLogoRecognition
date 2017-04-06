@@ -7,8 +7,8 @@ from keras import applications
 
 #flickr = flickrapi.FlickrAPI('0a0e20275249094ff865b34e5fce9722','f9b02cabe43e291d',format='parsed-json')
 
-weights_path = 'vgg16_weights.h5'
-top_model_weights_path = 'first_try.h5'
+#weights_path = 'vgg16_weights.h5'
+#top_model_weights_path = 'first_try.h5'
 
 img_width, img_height = 250, 250 #img demensions
 
@@ -19,10 +19,10 @@ nb_validation_samples = 20
 epochs = 50
 batch_size = 16
 
-model = applications.VGG16(weights='imagenet', include_top=False)
-print('Model loaded.')
+#model = applications.VGG16(weights='imagenet', include_top=False)
+#print('Model loaded.')
 
-if K.image_data_format() == 'channels_first':
+if K.image == 'channels_first':
     input_shape = (3, img_width, img_height)
 else:
     input_shape = (img_width, img_height, 3)
